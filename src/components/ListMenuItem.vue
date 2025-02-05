@@ -1,0 +1,3 @@
+<template>
+    ListMenuItem.vue
+</template>

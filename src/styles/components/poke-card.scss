@@ -1,0 +1,110 @@
+@use "sass:math";
+
+.poke-card {
+  width: 190px; // (1200 - 12*5)/6
+  margin-right: 12px;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 0;
+
+  @include m-mobile {
+    width: 100%;
+    margin: 0;
+    border: 0;
+    border-bottom: 1px solid $darkLight;
+  }
+}
+
+
+
+.poke-card__inner {
+  &:hover .poke-card__artwork{
+    -webkit-transition:all 1s ease;
+      -moz-transition:all 1s ease;
+        -ms-transition:all 1s ease;
+          -o-transition:all 1s ease;
+            transition:all 1s ease;
+  }
+  @include m-mobile {
+    display: flex;
+    align-items: center;
+    padding: 6px math.div($ruler, 1.4);
+  }
+}
+
+.poke-card__artwork {
+  width: 100%;
+  height: 180px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  margin-bottom: 10px;
+  background-color: $darker;
+  border-radius: 10px;
+  border: 1px solid chocolate;
+
+  @include m-mobile {
+    background-size: cover;
+    width: 50px;
+    height: 46px;
+    margin: 0 10px 0 0;
+    flex-shrink: 0;
+  }
+}
+
+.poke-card__body {
+  overflow: hidden;
+  align-items: center;
+}
+
+.poke-card__avatar {
+  width: 35px;
+  height: 35px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: contain;
+  margin-right: 10px;
+
+  @include m-mobile {
+    display: none;
+  }
+}
+
+.poke-card__details {
+  overflow: hidden;
+  flex: 1;
+}
+
+.poke-card__title,
+.poke-card__username {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: $yellow;
+  font-size: 13px;
+  margin-bottom: 2px;
+  text-transform: capitalize;
+  
+  @include m-mobile {
+    font-size: 12px;
+  }
+}
+
+.poke-card__username {
+  color: $gray;
+  font-size: 12px;
+}
+
+.poke-card__mobile-event {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+
+  @include m-mobile {
+    z-index: 1;
+  }
+}

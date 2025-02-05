@@ -1,0 +1,15 @@
+.pokes {
+  margin-top: $height-nav + 40;
+  padding: 12px 0;
+
+  @include m-tablet {
+    margin-top: $height-nav + 90;
+  }
+  @include m-mobile {
+    padding-top: $height-nav - 10;
+  }
+}
+
+.pokes--light {
+  background-color: $white;
+}
