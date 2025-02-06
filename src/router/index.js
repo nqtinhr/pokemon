@@ -1,27 +1,27 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { defineAsyncComponent } from 'vue';
 
-const PokemonsContainer = defineAsyncComponent(() => import('./containers/PokemonsContainer.vue'));
-const PokemonColorContainer = defineAsyncComponent(() => import('./containers/PokemonColorContainer.vue'));
-const DetailPokemonContainer = defineAsyncComponent(() => import('./containers/DetailPokemonContainer.vue'));
-const NotFoundContainer = defineAsyncComponent(() => import('./containers/NotFoundContainer.vue'));
+const Pokemons = defineAsyncComponent(() => import('../pages/Pokemons.vue'));
+const PokemonColor = defineAsyncComponent(() => import('../pages/PokemonColor.vue'));
+const PokemonDetail = defineAsyncComponent(() => import('../pages/PokemonDetail.vue'));
+const NotFound = defineAsyncComponent(() => import('../pages/NotFound.vue'));
 
 const routes = [
   {
     path: '/',
-    component: PokemonsContainer
+    component: Pokemons
   },
   {
     path: '/:queryPoke/:id',
-    component: PokemonColorContainer
+    component: PokemonColor
   },
   {
     path: '/pokemon/:id/:name',
-    component: DetailPokemonContainer
+    component: PokemonDetail
   },
   {
     path: '/:pathMatch(.*)*',
-    component: NotFoundContainer
+    component: NotFound
   }
 ];
 

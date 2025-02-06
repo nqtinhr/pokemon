@@ -39,8 +39,8 @@ import {
   API_COLOR_POKE,
   API_EGG_POKE,
   API_HABITAT_POKE,
-} from "../constants/urlApi";
-import LogoPoke from "../assets/logo.png";
+} from "@/constants/urlApi";
+import LogoPoke from "@/assets/logo.png";
 
 export default defineComponent({
   components: {

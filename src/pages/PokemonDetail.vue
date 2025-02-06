@@ -1,0 +1,3 @@
+<template>
+    PokemonDetail.vue
+</template>
