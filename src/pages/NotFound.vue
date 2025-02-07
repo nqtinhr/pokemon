@@ -9,16 +9,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import LogoPoke from "@/assets/logo.png";
 import Pika from "@/assets/pika.png";
-
-export default {
-  data() {
-    return {
-      LogoPoke,
-      Pika,
-    };
-  },
-};
 </script>

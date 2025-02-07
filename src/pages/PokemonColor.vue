@@ -1,3 +1,3 @@
 <template>
-    PokemonColor.vue
+    PokemonColor
 </template>

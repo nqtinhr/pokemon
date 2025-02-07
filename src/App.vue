@@ -16,6 +16,6 @@
 
 <script setup>
 import { RouterView } from "vue-router";
-import NavContainer from "@/components/NavContainer.vue";
+import NavContainer from "@/components/NavBar.vue";
 import Loading from "@/components/Loading.vue";
 </script>

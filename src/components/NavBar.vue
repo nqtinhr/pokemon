@@ -15,7 +15,7 @@
           >
             <span class="nav__menu__item__title">{{ menu.title }}</span>
             <ul class="nav__menu__item__dropdown">
-              <ListMenuItem :apiListMenu="menu.api" :nameMenu="menu.name" />
+              <ListMenuItem :nameMenu="menu.name" />
             </ul>
           </li>
         </ul>
@@ -32,29 +32,15 @@
   </nav>
 </template>
 
-<script>
-import { defineComponent } from "vue";
-import ListMenuItem from "./ListMenuItem.vue";
-import {
-  API_COLOR_POKE,
-  API_EGG_POKE,
-  API_HABITAT_POKE,
-} from "@/constants/urlApi";
+<script setup>
 import LogoPoke from "@/assets/logo.png";
+import { ref } from "vue";
+import ListMenuItem from "./ListMenuItem.vue";
 
-export default defineComponent({
-  components: {
-    ListMenuItem,
-  },
-  data() {
-    return {
-      LogoPoke,
-      menuItems: [
-        { title: "color", api: API_COLOR_POKE, name: "color" },
-        { title: "egg groups", api: API_EGG_POKE, name: "egg" },
-        { title: "habitat", api: API_HABITAT_POKE, name: "habitat" },
-      ],
-    };
-  },
-});
+const menuItems = ref([
+  { title: "color", name: "color" },
+  { title: "egg groups", name: "egg" },
+  { title: "habitat", name: "habitat" },
+]);
 </script>
+
