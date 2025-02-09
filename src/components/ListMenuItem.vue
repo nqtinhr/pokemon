@@ -1,7 +1,7 @@
 <template>
-  <ul v-if="listItems[nameMenu]">
+  <ul v-if="listItemsMenu[nameMenu]">
     <li
-      v-for="(item) in listItems[nameMenu]"
+      v-for="(item) in listItemsMenu[nameMenu]"
       :key="item"
       class="nav__dropdown__item"
     >
@@ -17,15 +17,15 @@
 </template>
 
 <script setup>
+import { usePokemonStore } from "@/store/pokemonStore";
 import { defineProps, onMounted } from "vue";
 import { RouterLink } from "vue-router";
-import { usePokemonMenuStore } from "@/store/pokemonMenuStore";
 
 const props = defineProps({
   nameMenu: String,
 });
 
-const { fetchDataPokeMenu, listItems } = usePokemonMenuStore();
+const { fetchDataPokeMenu, listItemsMenu } = usePokemonStore();
 
 const changeBgStyle = (event, color) => {
   event.target.style.color = color;

@@ -1,6 +1,12 @@
 import axiosInstance from "./axiosInstance";
 
 const pokeApi = {
+    getPokemons(params){
+      return axiosInstance.get(`/pokemon`, { params });
+    },
+    getPokemonById(id){
+      return axiosInstance.get(`/pokemon/${id}`);
+    },
     getColorPokemons(){
       return axiosInstance.get(`/pokemon-color`);
     },
