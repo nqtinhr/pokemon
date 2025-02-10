@@ -35,7 +35,6 @@ export const usePokemonStore = defineStore('pokemon', {
       try {
         const response = await axios.get(`${API_FETCH_POKEMONS}/${id}`);
         this.pokemonInfo[id] = response.data;
-        return data;
       } catch (error) {
         console.error(`Get pokemon by id ${id} failed:`, error);
         return null;

@@ -56,7 +56,7 @@
             </div>
           </div>
         </div>
-        <DetailPoke v-bind="pokemon" />
+        <DetailPoke />
       </div>
       <Loading :loading="store.loading" />
     </div>
