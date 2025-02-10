@@ -1,4 +1,5 @@
-import pokeApi from '@/api/pokemonApi';
+import { API_COLOR_POKE, API_EGG_POKE, API_FETCH_POKEMONS, API_HABITAT_POKE } from '@/constants/urlApi';
+import axios from 'axios';
 import { defineStore } from 'pinia';
 
 export const usePokemonStore = defineStore('pokemon', {
@@ -14,15 +15,13 @@ export const usePokemonStore = defineStore('pokemon', {
     },
   }),
   actions: {
-    async fetchPokemons() {
+    async fetchPokemons(url= null) {
       this.loading = true;
       try {
-        const params = {
-          limit: 24,
-        };
-        const data = await pokeApi.getPokemons(params);
-        this.pokemons = [...this.pokemons, ...data.results]; 
-        this.nextUrl = data.next;
+        const params = url ? {} : { offset: 0, limit: 28 };
+        const response = await axios.get(url || API_FETCH_POKEMONS, { params });
+        this.pokemons = [...this.pokemons, ...response.data.results];
+        this.nextUrl = response.data.next;
       } catch (error) {
         console.error("Error fetching pokemons:", error);
       } finally {
@@ -34,8 +33,8 @@ export const usePokemonStore = defineStore('pokemon', {
       if (this.pokemonInfo[id]) return this.pokemonInfo[id];
       this.loading = true;
       try {
-        const data = await pokeApi.getPokemonById(id);
-        this.pokemonInfo[id] = data;
+        const response = await axios.get(`${API_FETCH_POKEMONS}/${id}`);
+        this.pokemonInfo[id] = response.data;
         return data;
       } catch (error) {
         console.error(`Get pokemon by id ${id} failed:`, error);
@@ -49,16 +48,15 @@ export const usePokemonStore = defineStore('pokemon', {
       this.loading = true;
       try {
         const apiMap = {
-          color: pokeApi.getColorPokemons,
-          egg: pokeApi.getEggPokemons,
-          habitat: pokeApi.getHabitatPokemons,
+          color: API_COLOR_POKE,
+          egg: API_EGG_POKE,
+          habitat: API_HABITAT_POKE,
         };
 
         if (!apiMap[nameMenu]) throw new Error(`Invalid menu name: ${nameMenu}`);
 
-        const data = await apiMap[nameMenu]();
-
-        this.listItemsMenu[nameMenu] = data.results || [];
+        const response = await axios.get(apiMap[nameMenu]);
+        this.listItemsMenu[nameMenu] = response.data.results || [];
       } catch (error) {
         console.error(`Lỗi khi lấy dữ liệu ${nameMenu}:`, error);
       } finally {

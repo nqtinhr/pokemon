@@ -1,7 +1,7 @@
 <template>
-  <ul v-if="listItemsMenu[nameMenu]">
+  <ul v-if="store.listItemsMenu[nameMenu]">
     <li
-      v-for="(item) in listItemsMenu[nameMenu]"
+      v-for="(item) in store.listItemsMenu[nameMenu]"
       :key="item"
       class="nav__dropdown__item"
     >
@@ -25,7 +25,7 @@ const props = defineProps({
   nameMenu: String,
 });
 
-const { fetchDataPokeMenu, listItemsMenu } = usePokemonStore();
+const store = usePokemonStore();
 
 const changeBgStyle = (event, color) => {
   event.target.style.color = color;
@@ -37,6 +37,6 @@ const getSegment = (url, position) => {
 };
 
 onMounted(() => {
-  fetchDataPokeMenu(props.nameMenu);
+  store.fetchDataPokeMenu(props.nameMenu);
 });
 </script>
