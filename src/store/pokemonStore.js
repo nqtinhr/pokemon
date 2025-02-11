@@ -1,6 +1,8 @@
-import { API_COLOR_POKE, API_EGG_POKE, API_FETCH_POKEMONS, API_HABITAT_POKE } from '@/constants/urlApi';
+import { API_COLOR_POKE, API_EGG_POKE, API_FETCH_POKEMONS, API_HABITAT_POKE, API_POKEMONS } from '@/constants/urlApi';
 import axios from 'axios';
 import { defineStore } from 'pinia';
+
+const CACHE_DURATION = 1000 * 60 * 5;
 
 export const usePokemonStore = defineStore('pokemon', {
   state: () => ({
@@ -62,5 +64,23 @@ export const usePokemonStore = defineStore('pokemon', {
         this.loading = false;
       }
     },
+    async fetchPokemonAttribute(queryPoke, id) {
+      const cacheKey = `${queryPoke}-${id}`;
+      if (this.cache[cacheKey]){
+        console.log('cache hit', this.cache[cacheKey]);
+        return this.cache[cacheKey];
+      }
+      this.loading = true;
+      try {
+        const response = await axios.get(`${API_POKEMONS}/${queryPoke}/${id}`);
+        this.cache[cacheKey] = response.data?.pokemon_species || [];
+        return this.cache[cacheKey];
+      } catch (error) {
+        console.error(`Get pokemon by id ${id} failed:`, error);
+        return null;
+      } finally {
+        this.loading = false;
+      }
+    }
   },
 });

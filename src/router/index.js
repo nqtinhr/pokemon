@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import { defineAsyncComponent } from 'vue';
 
 const Pokemons = defineAsyncComponent(() => import('../pages/Pokemons.vue'));
-const PokemonColor = defineAsyncComponent(() => import('../pages/PokemonColor.vue'));
+const PokemonAttribute = defineAsyncComponent(() => import('../pages/PokemonAttribute.vue'));
 const PokemonDetail = defineAsyncComponent(() => import('../pages/PokemonDetail.vue'));
 const NotFound = defineAsyncComponent(() => import('../pages/NotFound.vue'));
 
@@ -13,7 +13,7 @@ const routes = [
   },
   {
     path: '/:queryPoke/:id',
-    component: PokemonColor
+    component: PokemonAttribute
   },
   {
     path: '/pokemon/:id/:name',

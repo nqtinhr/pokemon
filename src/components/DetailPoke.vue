@@ -9,23 +9,19 @@
             :src="pokemon.sprites.versions['generation-v']['black-white'].animated.front_default"
             alt="Pokemon Sprite"
           />
-          <img
-            v-else-if="pokemon.sprites?.front_default"
-            :src="pokemon.sprites.front_default"
-            alt="Pokemon Sprite"
-          />
+          <img v-else-if="pokemon.sprites?.front_default" :src="pokemon.sprites.front_default" alt="Pokemon Sprite" />
         </div>
 
         <div class="content-info-detail-poke">
           <div class="info-detail-poke-item">
             <div class="cate-info">
-              Color: 
-              <span v-if="pokemon.color" class="value-cate-info">
+              Color:
+              <span v-if="speciesData?.color" class="value-cate-info">
                 <router-link
-                  :to="`/pokemon-color/${getIdFromUrl(pokemon.color.url)}`"
-                  :style="{ color: pokemon.color.name }"
+                  :to="`/pokemon-color/${getIdFromUrl(speciesData.color.url)}`"
+                  :style="{ color: speciesData.color.name }"
                 >
-                  {{ pokemon.color.name }}
+                  {{ speciesData.color.name }}
                 </router-link>
               </span>
             </div>
@@ -36,10 +32,10 @@
 
             <div class="cate-info">
               Egg groups:
-              <span v-if="pokemon.egg_groups" class="value-cate-info">
-                <template v-for="(item, index) in pokemon.egg_groups" :key="index">
+              <span v-if="speciesData?.egg_groups" class="value-cate-info">
+                <template v-for="(item, index) in speciesData.egg_groups" :key="item.url">
                   <router-link :to="`/egg-group/${getIdFromUrl(item.url)}`">
-                    {{ index !== 0 ? ', ' : '' }}{{ item.name }}
+                    {{ item.name }} {{ index !== 0 ? ', ' : '' }}
                   </router-link>
                 </template>
               </span>
@@ -47,27 +43,27 @@
 
             <div class="cate-info">
               Habitat:
-              <span v-if="pokemon.habitat" class="value-cate-info">
-                <router-link :to="`/pokemon-habitat/${getIdFromUrl(pokemon.habitat.url)}`">
-                  {{ formatHabitat(pokemon.habitat.name) }}
+              <span v-if="speciesData?.habitat" class="value-cate-info">
+                <router-link :to="`/pokemon-habitat/${getIdFromUrl(speciesData.habitat.url)}`">
+                  {{ formatHabitat(speciesData.habitat.name) }}
                 </router-link>
-                {{ getHabitatEmoji(pokemon.habitat.name) }}
+                {{ getHabitatEmoji(speciesData.habitat.name) }}
               </span>
               <span v-else class="value-cate-info">❔</span>
             </div>
 
             <div class="cate-info">
               Hatching eggs time:
-              <span class="value-cate-info">{{ pokemon.hatch_counter }} Day</span>
+              <span class="value-cate-info">{{ speciesData?.hatch_counter }} Day</span>
             </div>
 
             <div class="cate-info">
               Evolution:
               <span class="value-cate-info">
                 <EvolutionPoke
-                  v-if="pokemon.evolves_from_species"
-                  :namePoke="pokemon.evolves_from_species.name"
-                  :apiEvolutionPoke="pokemon.evolves_from_species.url"
+                  v-if="speciesData?.evolves_from_species"
+                  :namePoke="speciesData.evolves_from_species.name"
+                  :apiEvolutionPoke="speciesData.evolves_from_species.url"
                 />
                 <span v-else>🥚</span>
               </span>
@@ -91,7 +87,7 @@ const route = useRoute();
 const speciesData = ref(null);
 
 const speciesUrl = computed(() => store.pokemonInfo[route.params.id]?.species?.url);
-const pokemon =  computed(() => store.pokemonInfo[route.params.id]);
+const pokemon = computed(() => store.pokemonInfo[route.params.id]);
 
 const getIdFromUrl = (url) => url.split('/').slice(-2, -1)[0];
 
@@ -114,13 +110,12 @@ const getHabitatEmoji = (habitat) => {
 
 onMounted(async () => {
   if (speciesUrl.value) {
-
     try {
       const response = await axios.get(speciesUrl.value);
       speciesData.value = response.data;
-      console.log("Species Data:", speciesData.value);
+      console.log('Species Data:', speciesData.value);
     } catch (error) {
-      console.error("Error fetching species data:", error);
+      console.error('Error fetching species data:', error);
     }
   }
 });
